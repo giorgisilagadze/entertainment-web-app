@@ -24,7 +24,6 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <GlobalStyled />
       <h1>giorgi</h1>
     </>
   );

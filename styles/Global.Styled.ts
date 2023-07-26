@@ -6,6 +6,9 @@ export const GlobalStyled = createGlobalStyle`
         padding: 0px;
         box-sizing: border-box;
         font-family: 'Outfit', sans-serif;
+    }
+
+    body {
         background-color: #10141E;
     }
 `;
