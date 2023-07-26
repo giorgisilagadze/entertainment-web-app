@@ -12,8 +12,8 @@ import {
   Already,
   ChangePage,
   StyledLink,
+  Error,
 } from "@/styles/LogIn.Styled";
-import Link from "next/link";
 
 const schema = yup
   .object({
@@ -43,16 +43,16 @@ export default function LogIn() {
             placeholder="Email address"
             {...register("email")}
           />
-          <p>{errors.email?.message}</p>
           <Hr />
+          <Error>{errors.email?.message}</Error>
 
           <Input
             type="password"
             placeholder="Password"
             {...register("password")}
           />
-          <p>{errors.password?.message}</p>
           <Hr />
+          <Error>{errors.password?.message}</Error>
 
           <Button>Login to your account</Button>
           <BelowDiv>

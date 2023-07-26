@@ -84,3 +84,8 @@ export const ChangePage = styled.p`
 export const StyledLink = styled(Link)`
   text-decoration: none;
 `;
+
+export const Error = styled(ChangePage)`
+  font-size: 12px;
+  margin-top: 5px;
+`;
