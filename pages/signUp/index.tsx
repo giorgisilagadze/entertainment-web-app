@@ -51,7 +51,7 @@ export default function SignUp() {
     <>
       <Logo src="./assets/logo.svg" alt="logo" />
       <LogInDiv>
-        <Title>Login</Title>
+        <Title>Sign Up</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             type="text"
