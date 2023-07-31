@@ -14,6 +14,7 @@ import {
   StyledLink,
   Error,
 } from "@/styles/LogIn.Styled";
+import { GlobalStyled } from "@/styles/Global.Styled";
 
 const schema = yup
   .object({
@@ -92,3 +93,12 @@ export default function SignUp() {
     </>
   );
 }
+
+SignUp.getLayout = function pageLayout(page: any) {
+  return (
+    <>
+      <GlobalStyled />
+      {page}
+    </>
+  );
+};
