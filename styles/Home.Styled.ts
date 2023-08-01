@@ -10,12 +10,8 @@ export const Trending = styled.h1`
   font-weight: 300;
   line-height: normal;
   letter-spacing: -0.312px;
-  margin-left: 16px;
+  margin: 24px 0px 0px 16px;
 `;
-
-// export const CarouselSlider = styled(Carousel)`
-//   display: flex;
-// `;
 
 export const TrendingDiv = styled.div`
   margin: 16px 0px 0px 16px;
@@ -102,4 +98,13 @@ export const TitleBookm = styled.h1`
   font-size: 15px;
   font-weight: 500;
   line-height: normal;
+`;
+
+export const Recomended = styled.div`
+  margin-top: 24px;
+  padding: 0px 16px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 `;

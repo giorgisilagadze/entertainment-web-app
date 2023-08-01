@@ -1,6 +1,6 @@
 import { GlobalStyled } from "@/styles/Global.Styled";
 import type { AppProps } from "next/app";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import { ReactElement, ReactNode, useState } from "react";
 import { NextPage } from "next";
 

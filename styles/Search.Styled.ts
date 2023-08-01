@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SearchDiv = styled.div`
   width: 100%;
-  padding: 24px 16px;
+  padding: 24px 16px 0px;
   display: flex;
   gap: 16px;
   align-items: center;

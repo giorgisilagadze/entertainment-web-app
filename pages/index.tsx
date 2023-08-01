@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GlobalStyled } from "@/styles/Global.Styled";
-import Search from "./components/Search";
+import Search from "../components/Search";
 import {
   Trending,
   TrendingDiv,
@@ -14,8 +14,10 @@ import {
   Dot,
   IconMovie,
   TitleBookm,
+  Recomended,
 } from "@/styles/Home.Styled";
 import { useEffect, useState } from "react";
+import Movie from "@/components/Movie";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +27,7 @@ interface Bookmark {
 
 export default function Home({ isBookmarked }: Bookmark) {
   const [isData, setIsData] = useState([]);
-  const [isChecked, setIsChecked] = useState("");
+  const [isChecked, setIsChecked] = useState<Array<string>>([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -39,6 +41,7 @@ export default function Home({ isBookmarked }: Bookmark) {
   }, []);
 
   const trending = isData.filter((item: any) => item.isTrending == true);
+  const notTrending = isData.filter((item: any) => item.isTrending == false);
 
   return (
     <>
@@ -57,17 +60,19 @@ export default function Home({ isBookmarked }: Bookmark) {
       <TrendingDiv>
         {trending.map((item: any) => (
           <EachTranding key={Math.random()}>
-            <EachImg src={item.thumbnail.trending.small} alt="" />
+            <EachImg src={item.thumbnail.trending.small} alt={item.name} />
             <BookmarkDiv
               onClick={() => {
-                setIsChecked(item.title);
+                isChecked.push(item.title);
+                console.log(isChecked.includes(item.title));
+
                 isBookmarked.push(item);
                 console.log(isBookmarked);
               }}
             >
               <BookmarkIcon
                 src={
-                  isChecked == item.title
+                  isChecked.includes(item.title)
                     ? "./assets/icon-bookmark-full.svg"
                     : "./assets/icon-bookmark-empty.svg"
                 }
@@ -93,6 +98,21 @@ export default function Home({ isBookmarked }: Bookmark) {
           </EachTranding>
         ))}
       </TrendingDiv>
+      <Trending>Recommended for you</Trending>
+      <Recomended>
+        {notTrending.map((item: any) => (
+          <Movie
+            setIsChecked={setIsChecked}
+            isChecked={isChecked}
+            image={item.thumbnail.regular.small}
+            title={item.title}
+            movie={item}
+            year={item.year}
+            rating={item.rating}
+            category={item.category}
+          />
+        ))}
+      </Recomended>
     </>
   );
 }
