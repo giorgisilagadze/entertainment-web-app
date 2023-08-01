@@ -20,6 +20,7 @@ export const SearchInput = styled.input`
   background-color: #10141e;
   color: white;
   font-size: 16px;
+  font-weight: 300;
   line-height: normal;
 
   &:focus {

@@ -2,16 +2,38 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GlobalStyled } from "@/styles/Global.Styled";
 import Search from "./components/Search";
+import {
+  Trending,
+  TrendingDiv,
+  EachTranding,
+  EachImg,
+  BookmarkDiv,
+  BookmarkIcon,
+  Properties,
+  PropertiesText,
+  Dot,
+  IconMovie,
+  TitleBookm,
+} from "@/styles/Home.Styled";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const getData = async () => {
-    const response = await fetch("/api");
-    const data = await response.json();
-    console.log(data);
-  };
-  getData();
+  const [isData, setIsData] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch("/api");
+      const data = await response.json();
+      console.log(data);
+      setIsData(data);
+    };
+
+    getData();
+  }, []);
+
+  const trending = isData.filter((item: any) => item.isTrending == true);
 
   return (
     <>
@@ -21,11 +43,38 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&display=swap"
           rel="stylesheet"
         />
       </Head>
       <Search />
+      <Trending>Trending</Trending>
+      <TrendingDiv>
+        {trending.map((item: any) => (
+          <EachTranding>
+            <EachImg src={item.thumbnail.trending.small} alt="" />
+            <BookmarkDiv>
+              <BookmarkIcon src="./assets/icon-bookmark-empty.svg" alt="" />
+            </BookmarkDiv>
+            <Properties>
+              <PropertiesText>{item.year}</PropertiesText>
+              <Dot />
+              <IconMovie
+                src={
+                  item.category == "Movie"
+                    ? "./assets/icon-nav-movies.svg"
+                    : "./assets/icon-nav-tv-series.svg"
+                }
+                alt=""
+              />
+              <PropertiesText>{item.category}</PropertiesText>
+              <Dot />
+              <PropertiesText>{item.rating}</PropertiesText>
+            </Properties>
+            <TitleBookm>{item.title}</TitleBookm>
+          </EachTranding>
+        ))}
+      </TrendingDiv>
     </>
   );
 }
