@@ -63,16 +63,18 @@ export default function Home({ isBookmarked }: Bookmark) {
             <EachImg src={item.thumbnail.trending.small} alt={item.name} />
             <BookmarkDiv
               onClick={() => {
-                isChecked.push(item.title);
-                console.log(isChecked.includes(item.title));
-
-                isBookmarked.push(item);
-                console.log(isBookmarked);
+                const index = isData.findIndex(
+                  (movie: any) => movie.id == item.id
+                );
+                const clone: any = [...isData];
+                clone[index].isBookmarked = !clone[index].isBookmarked;
+                setIsData(clone);
+                console.log(index);
               }}
             >
               <BookmarkIcon
                 src={
-                  isChecked.includes(item.title)
+                  item.isBookmarked
                     ? "./assets/icon-bookmark-full.svg"
                     : "./assets/icon-bookmark-empty.svg"
                 }
@@ -102,7 +104,6 @@ export default function Home({ isBookmarked }: Bookmark) {
       <Recomended>
         {notTrending.map((item: any) => (
           <Movie
-            setIsChecked={setIsChecked}
             isChecked={isChecked}
             image={item.thumbnail.regular.small}
             title={item.title}
@@ -110,6 +111,9 @@ export default function Home({ isBookmarked }: Bookmark) {
             year={item.year}
             rating={item.rating}
             category={item.category}
+            isData={isData}
+            id={item.id}
+            setIsData={setIsData}
           />
         ))}
       </Recomended>

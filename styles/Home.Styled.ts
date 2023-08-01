@@ -102,7 +102,7 @@ export const TitleBookm = styled.h1`
 
 export const Recomended = styled.div`
   margin-top: 24px;
-  padding: 0px 16px;
+  padding: 0px 16px 60px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;

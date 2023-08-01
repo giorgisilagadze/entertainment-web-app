@@ -23,34 +23,34 @@ interface Movie {
   year: string;
   category: string;
   rating: string;
+  isData: Array<{}>;
+  id: Number;
+  setIsData: (isData: Array<{}>) => void;
 }
 
-interface Bookmark {
-  isBookmarked: Array<{}>;
-}
-
-export default function Movie(
-  {
-    image,
-    setIsChecked,
-    isChecked,
-    title,
-    movie,
-    year,
-    category,
-    rating,
-  }: Movie,
-  { isBookmarked }: Bookmark
-) {
+export default function Movie({
+  image,
+  isChecked,
+  title,
+  movie,
+  year,
+  category,
+  rating,
+  isData,
+  id,
+  setIsData,
+}: Movie) {
   return (
     <div>
       <EachCont>
         <EachMovieImg src={image} />
         <BookmarkDiv
           onClick={() => {
-            isChecked.push(title);
-            isBookmarked.push(movie);
-            console.log(isBookmarked);
+            const index = isData.findIndex((movie: any) => movie.id == id);
+            const clone: any = [...isData];
+            clone[index].isBookmarked = !clone[index].isBookmarked;
+            setIsData(clone);
+            console.log(index);
           }}
         >
           <BookmarkIcon
