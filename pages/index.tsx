@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GlobalStyled } from "@/styles/Global.Styled";
+import Search from "./components/Search";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,7 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <h1>giorgi</h1>
+      <Search />
     </>
   );
 }

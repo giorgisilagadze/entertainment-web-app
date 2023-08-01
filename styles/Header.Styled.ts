@@ -17,7 +17,7 @@ export const StyledHeader = styled.div`
 export const Category = styled.div`
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 25px;
 `;
 
 export const Avatar = styled.img`
