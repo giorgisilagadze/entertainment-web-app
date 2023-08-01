@@ -19,8 +19,13 @@ import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+interface Bookmark {
+  isBookmarked: Array<{}>;
+}
+
+export default function Home({ isBookmarked }: Bookmark) {
   const [isData, setIsData] = useState([]);
+  const [isChecked, setIsChecked] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -51,10 +56,23 @@ export default function Home() {
       <Trending>Trending</Trending>
       <TrendingDiv>
         {trending.map((item: any) => (
-          <EachTranding>
+          <EachTranding key={Math.random()}>
             <EachImg src={item.thumbnail.trending.small} alt="" />
-            <BookmarkDiv>
-              <BookmarkIcon src="./assets/icon-bookmark-empty.svg" alt="" />
+            <BookmarkDiv
+              onClick={() => {
+                setIsChecked(item.title);
+                isBookmarked.push(item);
+                console.log(isBookmarked);
+              }}
+            >
+              <BookmarkIcon
+                src={
+                  isChecked == item.title
+                    ? "./assets/icon-bookmark-full.svg"
+                    : "./assets/icon-bookmark-empty.svg"
+                }
+                alt=""
+              />
             </BookmarkDiv>
             <Properties>
               <PropertiesText>{item.year}</PropertiesText>

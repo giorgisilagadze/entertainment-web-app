@@ -1,7 +1,7 @@
 import { GlobalStyled } from "@/styles/Global.Styled";
 import type { AppProps } from "next/app";
 import Header from "./components/Header";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 import { NextPage } from "next";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -13,6 +13,8 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const [isBookmarked, setIsBookmarked] = useState([]);
+
   if (Component.getLayout) {
     return Component.getLayout(<Component {...pageProps} />);
   }
@@ -20,7 +22,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <GlobalStyled />
       <Header />
-      <Component {...pageProps} />
+      <Component {...pageProps} isBookmarked={isBookmarked} />
     </>
   );
 }
