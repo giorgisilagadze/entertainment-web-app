@@ -16,30 +16,16 @@ import {
   TitleBookm,
   Recomended,
 } from "@/styles/Home.Styled";
-import { useEffect, useState } from "react";
 import Movie from "@/components/Movie";
 
 const inter = Inter({ subsets: ["latin"] });
 
-interface Bookmark {
-  isBookmarked: Array<{}>;
+interface Data {
+  isData: Array<{}>;
+  setIsData: (isData: Array<{}>) => void;
 }
 
-export default function Home({ isBookmarked }: Bookmark) {
-  const [isData, setIsData] = useState([]);
-  const [isChecked, setIsChecked] = useState<Array<string>>([]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const response = await fetch("/api");
-      const data = await response.json();
-      console.log(data);
-      setIsData(data);
-    };
-
-    getData();
-  }, []);
-
+export default function Home({ isData, setIsData }: Data) {
   const trending = isData.filter((item: any) => item.isTrending == true);
   const notTrending = isData.filter((item: any) => item.isTrending == false);
 
@@ -104,7 +90,7 @@ export default function Home({ isBookmarked }: Bookmark) {
       <Recomended>
         {notTrending.map((item: any) => (
           <Movie
-            isChecked={isChecked}
+            key={Math.random()}
             image={item.thumbnail.regular.small}
             title={item.title}
             movie={item}

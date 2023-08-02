@@ -19,18 +19,17 @@ interface Movie {
   isChecked: Array<string>;
   setIsChecked: (isChecked: Array<string>) => void;
   title: string;
-  movie: {};
-  year: string;
+  movie: any;
+  year: number;
   category: string;
   rating: string;
   isData: Array<{}>;
-  id: Number;
+  id: string;
   setIsData: (isData: Array<{}>) => void;
 }
 
 export default function Movie({
   image,
-  isChecked,
   title,
   movie,
   year,
@@ -55,7 +54,7 @@ export default function Movie({
         >
           <BookmarkIcon
             src={
-              isChecked.includes(title)
+              movie.isBookmarked
                 ? "./assets/icon-bookmark-full.svg"
                 : "./assets/icon-bookmark-empty.svg"
             }
