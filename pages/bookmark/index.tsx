@@ -32,12 +32,33 @@ export default function Bookmark({ isData, setIsData }: Data) {
   const movies = isData.filter(
     (movie) => movie.isBookmarked == true && movie.category == "Movie"
   );
+
+  const tvSeries = isData.filter(
+    (tv) => tv.isBookmarked == true && tv.category == "TV Series"
+  );
   return (
     <>
-      <Search />
+      <Search isData={isData} setIsData={setIsData} />
       <Trending>Bookmarked Movies</Trending>
       <Recomended>
         {movies.map((item) => (
+          <Movie
+            key={Math.random()}
+            image={item.thumbnail.regular.small}
+            title={item.title}
+            movie={item}
+            year={item.year}
+            rating={item.rating}
+            category={item.category}
+            isData={isData}
+            id={item.id}
+            setIsData={setIsData}
+          ></Movie>
+        ))}
+      </Recomended>
+      <Trending>Bookmarked TV Series</Trending>
+      <Recomended>
+        {tvSeries.map((item) => (
           <Movie
             key={Math.random()}
             image={item.thumbnail.regular.small}

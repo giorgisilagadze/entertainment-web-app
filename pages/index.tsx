@@ -21,7 +21,28 @@ import Movie from "@/components/Movie";
 const inter = Inter({ subsets: ["latin"] });
 
 interface Data {
-  isData: Array<{}>;
+  isData: Array<{
+    thumbnail: {
+      trending?: {
+        small: string;
+        large: string;
+        id: string;
+      };
+      regular: {
+        small: string;
+        medium: string;
+        large: string;
+        id: string;
+      };
+    };
+    title: string;
+    year: number;
+    category: string;
+    rating: string;
+    isBookmarked: boolean;
+    isTrending: boolean;
+    id: string;
+  }>;
   setIsData: (isData: Array<{}>) => void;
 }
 
@@ -41,7 +62,7 @@ export default function Home({ isData, setIsData }: Data) {
           rel="stylesheet"
         />
       </Head>
-      <Search />
+      <Search isData={isData} setIsData={setIsData} />
       <Trending>Trending</Trending>
       <TrendingDiv>
         {trending.map((item: any) => (
