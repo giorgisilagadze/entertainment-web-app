@@ -1,4 +1,7 @@
+import { Recomended } from "@/styles/Home.Styled";
 import { SearchDiv, SearchInput, SearchLogo } from "@/styles/Search.Styled";
+import { useState } from "react";
+import Movie from "./Movie";
 
 interface Data {
   isData: Array<{
@@ -27,23 +30,49 @@ interface Data {
 }
 
 export default function Search({ isData, setIsData }: Data) {
+  const [inputValue, setInputValue] = useState("");
+  const [filteredData, setFilteredData] = useState<any>([]);
   return (
-    <SearchDiv>
-      <SearchLogo src="./assets/icon-search.svg" alt="" />
-      <SearchInput
-        type="text"
-        placeholder="Search for movies or TV series"
-        onChange={(event) => {
-          event.preventDefault();
-          console.log(isData);
+    <>
+      <SearchDiv>
+        <SearchLogo src="./assets/icon-search.svg" alt="" />
+        <SearchInput
+          type="text"
+          placeholder="Search for movies or TV series"
+          onChange={(event) => {
+            event.preventDefault();
+            console.log(event.target.value);
 
-          const inputValue = event.target.value.trim().toLowerCase();
-          const filteredData = isData.filter((item) =>
-            item.title.toLowerCase().includes(inputValue)
-          );
-          setIsData(filteredData);
-        }}
-      />
-    </SearchDiv>
+            setInputValue(event.target.value);
+            const filtered = isData.filter((item) =>
+              item.title.toLowerCase().includes(inputValue)
+            );
+            setFilteredData(filtered);
+
+            console.log(filteredData);
+
+            // setIsData([...filteredData]);
+          }}
+        />
+      </SearchDiv>
+      {inputValue != "" && filteredData.length != 0 && (
+        <Recomended>
+          {filteredData.map((item: Data) => (
+            <Movie
+              key={Math.random()}
+              image={item.thumbnail.regular.small}
+              title={item.title}
+              movie={item}
+              year={item.year}
+              rating={item.rating}
+              category={item.category}
+              isData={isData}
+              id={item.id}
+              setIsData={setIsData}
+            />
+          ))}
+        </Recomended>
+      )}
+    </>
   );
 }
