@@ -46,7 +46,15 @@ interface Data {
   setIsData: (isData: Array<{}>) => void;
 }
 
-export default function Home({ isData, setIsData }: Data) {
+interface Input {
+  inputValue: string;
+  setInputValue: (inputValue: string) => void;
+}
+
+export default function Home(
+  { isData, setIsData }: Data,
+  { inputValue, setInputValue }: Input
+) {
   const trending = isData.filter((item: any) => item.isTrending == true);
   const notTrending = isData.filter((item: any) => item.isTrending == false);
 
@@ -62,68 +70,78 @@ export default function Home({ isData, setIsData }: Data) {
           rel="stylesheet"
         />
       </Head>
-      <Search isData={isData} setIsData={setIsData} />
-      <Trending>Trending</Trending>
-      <TrendingDiv>
-        {trending.map((item: any) => (
-          <EachTranding key={Math.random()}>
-            <EachImg src={item.thumbnail.trending.small} alt={item.name} />
-            <BookmarkDiv
-              onClick={() => {
-                const index = isData.findIndex(
-                  (movie: any) => movie.id == item.id
-                );
-                const clone: any = [...isData];
-                clone[index].isBookmarked = !clone[index].isBookmarked;
-                setIsData(clone);
-                console.log(index);
-              }}
-            >
-              <BookmarkIcon
-                src={
-                  item.isBookmarked
-                    ? "./assets/icon-bookmark-full.svg"
-                    : "./assets/icon-bookmark-empty.svg"
-                }
-                alt=""
+      <Search
+        isData={isData}
+        setIsData={setIsData}
+        // inputValue={inputValue}
+        // setInputValue={setInputValue}
+      />
+      {inputValue != "" && (
+        <>
+          {" "}
+          <Trending>Trending</Trending>
+          <TrendingDiv>
+            {trending.map((item: any) => (
+              <EachTranding key={Math.random()}>
+                <EachImg src={item.thumbnail.trending.small} alt={item.name} />
+                <BookmarkDiv
+                  onClick={() => {
+                    const index = isData.findIndex(
+                      (movie: any) => movie.id == item.id
+                    );
+                    const clone: any = [...isData];
+                    clone[index].isBookmarked = !clone[index].isBookmarked;
+                    setIsData(clone);
+                    console.log(index);
+                  }}
+                >
+                  <BookmarkIcon
+                    src={
+                      item.isBookmarked
+                        ? "./assets/icon-bookmark-full.svg"
+                        : "./assets/icon-bookmark-empty.svg"
+                    }
+                    alt=""
+                  />
+                </BookmarkDiv>
+                <Properties>
+                  <PropertiesText>{item.year}</PropertiesText>
+                  <Dot />
+                  <IconMovie
+                    src={
+                      item.category == "Movie"
+                        ? "./assets/icon-nav-movies.svg"
+                        : "./assets/icon-nav-tv-series.svg"
+                    }
+                    alt=""
+                  />
+                  <PropertiesText>{item.category}</PropertiesText>
+                  <Dot />
+                  <PropertiesText>{item.rating}</PropertiesText>
+                </Properties>
+                <TitleBookm>{item.title}</TitleBookm>
+              </EachTranding>
+            ))}
+          </TrendingDiv>
+          <Trending>Recommended for you</Trending>
+          <Recomended>
+            {notTrending.map((item: any) => (
+              <Movie
+                key={Math.random()}
+                image={item.thumbnail.regular.small}
+                title={item.title}
+                movie={item}
+                year={item.year}
+                rating={item.rating}
+                category={item.category}
+                isData={isData}
+                id={item.id}
+                setIsData={setIsData}
               />
-            </BookmarkDiv>
-            <Properties>
-              <PropertiesText>{item.year}</PropertiesText>
-              <Dot />
-              <IconMovie
-                src={
-                  item.category == "Movie"
-                    ? "./assets/icon-nav-movies.svg"
-                    : "./assets/icon-nav-tv-series.svg"
-                }
-                alt=""
-              />
-              <PropertiesText>{item.category}</PropertiesText>
-              <Dot />
-              <PropertiesText>{item.rating}</PropertiesText>
-            </Properties>
-            <TitleBookm>{item.title}</TitleBookm>
-          </EachTranding>
-        ))}
-      </TrendingDiv>
-      <Trending>Recommended for you</Trending>
-      <Recomended>
-        {notTrending.map((item: any) => (
-          <Movie
-            key={Math.random()}
-            image={item.thumbnail.regular.small}
-            title={item.title}
-            movie={item}
-            year={item.year}
-            rating={item.rating}
-            category={item.category}
-            isData={isData}
-            id={item.id}
-            setIsData={setIsData}
-          />
-        ))}
-      </Recomended>
+            ))}
+          </Recomended>
+        </>
+      )}
     </>
   );
 }

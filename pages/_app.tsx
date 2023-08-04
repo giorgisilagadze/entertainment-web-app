@@ -14,6 +14,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [isData, setIsData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -33,7 +34,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <GlobalStyled />
       <Header />
-      <Component {...pageProps} isData={isData} setIsData={setIsData} />
+      <Component
+        {...pageProps}
+        isData={isData}
+        setIsData={setIsData}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+      />
     </>
   );
 }

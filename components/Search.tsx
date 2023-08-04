@@ -29,8 +29,15 @@ interface Data {
   setIsData: (isData: Array<{}>) => void;
 }
 
-export default function Search({ isData, setIsData }: Data) {
-  const [inputValue, setInputValue] = useState("");
+interface Input {
+  inputValue: string;
+  setInputValue: (inputValue: string) => void;
+}
+
+export default function Search(
+  { isData, setIsData }: Data,
+  { inputValue, setInputValue }: Input
+) {
   const [filteredData, setFilteredData] = useState<any>([]);
   return (
     <>
@@ -45,7 +52,9 @@ export default function Search({ isData, setIsData }: Data) {
 
             setInputValue(event.target.value);
             const filtered = isData.filter((item) =>
-              item.title.toLowerCase().includes(inputValue)
+              item.title
+                .toLowerCase()
+                .includes(event.target.value.toLowerCase())
             );
             setFilteredData(filtered);
 
